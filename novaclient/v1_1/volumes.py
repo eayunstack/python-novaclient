@@ -132,6 +132,19 @@ class VolumeManager(base.ManagerWithFind):
         return self._update("/servers/%s/os-volume_attachments/%s" %
             (server_id, attachment_id,), body, "volumeAttachment")
 
+    def update_volume_qos(self, server_id, volume_id, qos_specs):
+        """
+        Update Cinder QoS Specs of the volume identified by the Volume ID,
+        that is attached to the given server ID
+
+        :param server_id: The ID of the server
+        :param volume_id: The ID of the volume
+        :param qos_specs: New Cinder QoS Specs of the volume
+        """
+        body = {'volumeQoSSpecs': qos_specs}
+        return self._update("/servers/%s/os-volume_attachments/%s" %
+            (server_id, volume_id,), body)
+
     def get_server_volume(self, server_id, attachment_id):
         """
         Get the volume identified by the attachment ID, that is attached to
